@@ -1,8 +1,8 @@
+import Confetti from "./Confetti";
 import "./ValentineContainer.css";
-import { motion } from "motion/react";
 import { useState } from "react";
 
-function ValentineContainer() {
+function ValentineContainer({ yes, setYes }) {
   const [position, setPosition] = useState({ top: "", left: "" });
   const shouldSetAbsolute = !!position.top;
   const moveButton = () => {
@@ -25,23 +25,27 @@ function ValentineContainer() {
     <div className="container">
       <h1 className="text">Orpi, Will You be My Love?</h1>
       <div className="buttons">
-        <button className="yes">Yes</button>
-        <button
-          style={
-            shouldSetAbsolute
-              ? {
-                  position: "fixed",
-                  top: position.top,
-                  left: position.left,
-                }
-              : { position: "relative" }
-          }
-          className="no"
-          onMouseEnter={moveButton}
-          onTouchStart={moveButton}
-        >
-          No
+        <button onClick={() => setYes(true)} className="yes">
+          Yes
         </button>
+        {!yes && (
+          <button
+            style={
+              shouldSetAbsolute
+                ? {
+                    position: "fixed",
+                    top: position.top,
+                    left: position.left,
+                  }
+                : { position: "relative" }
+            }
+            className="no"
+            onMouseEnter={moveButton}
+            onTouchStart={moveButton}
+          >
+            No
+          </button>
+        )}
       </div>
     </div>
   );
